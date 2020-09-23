@@ -10,3 +10,10 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+/*
+ 1.git status
+ 2.git add .
+ 3.git commit -m '提交信息'
+ 4.git push
+ */
