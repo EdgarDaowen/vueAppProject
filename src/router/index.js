@@ -17,6 +17,26 @@ const routes = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   // }
+  {
+    path:'',
+    redirect:'/home'
+  },
+  {
+    path:'/home',
+    component: ()=> import('../views/home/Home')
+  },
+  {
+    path:'/category',
+    component: ()=> import('../views/category/Category')
+  },
+  {
+    path:'/cart',
+    component: ()=> import('../views/cart/Cart')
+  },
+  {
+    path:'/profile',
+    component: ()=> import('../views/profile/Profile')
+  }
 ]
 
 const router = new VueRouter({
