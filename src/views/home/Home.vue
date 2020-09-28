@@ -2,14 +2,13 @@
   <div class="home">
     <nav-bar class="home-nav"><div slot="center">主页</div></nav-bar>
 
-    <scroll class="content">
+    <custom-scroll class="content">
       <home-swiper :banners="banners"></home-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view/>
       <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
       <goods-list :goods="showGoods"/>
-    </scroll>
-
+    </custom-scroll>
   </div>
 
 </template>
@@ -18,7 +17,7 @@
   import NavBar from "components/common/navbar/NavBar";
   import TabControl from "components/content/tabControl/TabControl";
   import GoodsList from "components/content/goods/GoodsList";
-  import Scroll from "components/common/scroll/Scroll";
+  import CustomScroll from "components/common/scroll/CustomScroll";
 
   import HomeSwiper from "./childComps/HomeSwiper";
   import RecommendView from "./childComps/RecommendView";
@@ -32,7 +31,7 @@
       NavBar,
       TabControl,
       GoodsList,
-      Scroll,
+      CustomScroll,
 
       HomeSwiper,
       RecommendView,
@@ -77,7 +76,6 @@
             break
         }
       },
-
 
       getHomeMultidata(){
         getHomeMultidata().then(res=>{
@@ -195,8 +193,9 @@
 
 <style scoped>
   .home{
+    height: 100vh;
     padding-top: 44px;
-    /*height: 100vh;*/
+    position: relative;
   }
 
   .home-nav {
@@ -217,10 +216,17 @@
   }
 
   .content{
-    /*height: calc(100% - 93px);*/
-    height: 400px;
     overflow: hidden;
-    /*margin-top: 44px;*/
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
   }
+
+  /*.content{*/
+  /*  height: calc(100% - 49px);*/
+  /*  !*height: 100%;*!*/
+  /*  overflow: hidden;*/
+  /*  !*margin-top: 44px;*!*/
+  /*}*/
 
 </style>
