@@ -34,6 +34,7 @@
 
   import { getHomeMultidata ,getHomeGoods } from "network/home";
   import { debounce } from "common/utils";
+  import { itemListenerMixin } from "common/mixin";
 
   export default {
     name: "Home",
@@ -48,6 +49,9 @@
       RecommendView,
       FeatureView
     },
+    //混入
+    mixins:[itemListenerMixin],
+
     data(){
       return{
         banners: [],
@@ -63,7 +67,10 @@
         tabOffsetTop:0,
         isTabFixed: false,
 
-        saveY: 0
+        saveY: 0,
+        //混入代替了
+        // itemImageListener:null
+
       }
     },
     computed:{
@@ -79,23 +86,25 @@
     },
     mounted() {
       //图片加载完成的事件监听
-      this.$nextTick(()=>{
-        const refresh = debounce(this.$refs.scroll.refresh,200)
-        this.$bus.$on('itemImageLoad',()=>{
-          refresh()
-        })
-      })
+      // this.$nextTick(()=>{
+      //   const refresh = debounce(this.$refs.scroll.refresh,200)
+      //   this.itemImageListener = ()=>{
+      //     refresh()
+      //   }
+      //   this.$bus.$on('itemImageLoad',this.itemImageListener)
+      // })
+
+      //混入实现
     },
     activated() {
-      console.log('activated');
       this.$refs.scroll.scrollTo(0,this.saveY,0)
       this.$refs.scroll.refresh()
     },
     deactivated() {
-      console.log('deactivated');
       // this.saveY = this.$refs.scroll.scroll.y
       this.saveY = this.$refs.scroll.getScrollY()
-
+      //取消全局监听
+      this.$bus.$off('itemImageLoad',this.itemImageListener)
     },
     methods:{
       tabClick(index){
