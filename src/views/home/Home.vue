@@ -17,6 +17,7 @@
 
     <!--监听组件中的原生组件时，必须加上.native-->
     <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
+
   </div>
 
 </template>
@@ -33,7 +34,6 @@
   import FeatureView from "./childComps/FeatureView";
 
   import { getHomeMultidata ,getHomeGoods } from "network/home";
-  import { debounce } from "common/utils";
   import { itemListenerMixin } from "common/mixin";
 
   export default {
@@ -47,7 +47,7 @@
 
       HomeSwiper,
       RecommendView,
-      FeatureView
+      FeatureView,
     },
     //混入
     mixins:[itemListenerMixin],
@@ -124,6 +124,8 @@
         this.$refs.tabControl2.currentIndex = index
 
         this.$refs.scroll.refresh()
+        //toast调用
+        // this.$toast.show('ces')
       },
       backClick(){
         // this.$refs.scroll.scroll.scrollTo(0,0,500)
